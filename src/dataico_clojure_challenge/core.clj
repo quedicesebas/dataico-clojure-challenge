@@ -7,6 +7,7 @@
     [clojure.test :as t]))
 
 ;; Problem 1
+(println "[Problem 1]")
 
 (def invoice (clojure.edn/read-string (slurp "invoice.edn")))
 
@@ -24,9 +25,10 @@
                        (some #(and (= :ret_fuente (:retention/category %)) (= 1 (:retention/rate %))) (get-in item [:retentionable/retentions]))]
                    (and (or with-iva-19 with-retention-1) (not (and with-iva-19 with-retention-1))))))))
 
-(println "[Problem 1] Items that satisfy just one of the conditions: " (valid-items invoice))
+(println "Items that satisfy just one of the conditions: " (valid-items invoice))
 
 ;; Problem 2
+(println "\n[Problem 2]")
 
 (def json-invoice (json/read-str (slurp "invoice.json")
                                 :key-fn keyword))
@@ -86,11 +88,12 @@
 
 (memoize prepare-invoice)
 
-println(str "[Problem 2] Valid?: " (s1/valid? ::i/invoice (prepare-invoice json-invoice)))
+(s1/valid? ::i/invoice (prepare-invoice json-invoice))
 (s1/explain ::i/invoice (prepare-invoice json-invoice))
 
 
 ;; Problem 3
+(println "\n[Problem 3]")
 
 (t/deftest
   no-discount-rate
